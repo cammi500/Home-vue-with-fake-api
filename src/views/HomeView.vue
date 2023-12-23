@@ -1,18 +1,33 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <h1>Home</h1>
+
+    <button class="btn btn-danger my-5" @click="getData()">click</button>
+    <h1 v-if="loadingStatus">Loading....</h1>
+    <div v-else>
+      <h1>data have</h1>
+    </div>
+
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
-export default defineComponent({
-  name: 'HomeView',
-  components: {
-    HelloWorld,
-  },
-});
+<script>
+  export default {
+    name:"HomeView",
+    data() {
+      return {
+        loadingStatus : false,
+      }
+    },
+    methods : {
+      getData(){
+        this.loadingStatus = true;
+      fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(json=>{console.log(json)
+            this.loadingStatus = false;
+            });
+    }
+    }
+  }
 </script>
