@@ -53,7 +53,16 @@
               this.posts = json;
               this.loadingStatus = false;
             });
-    }
+    },
+    mounted() {
+      this.loadingStatus = true;
+      fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then((json) =>{
+              this.posts = json;
+              this.loadingStatus = false;
+            });
+    },
     }
   }
 </script>
